@@ -6,7 +6,8 @@ import Star from '../img/star.png';
 
 function FiveStar(props) {
 
-    if (props.stars === 1){
+
+    if (props.stars === '1'){
         return (
 
             <div class="Rating" aria-label="Rating of this item is 3 out of 5">
@@ -18,7 +19,7 @@ function FiveStar(props) {
             </div >
     
         );
-    }else if (props.stars === 2){
+    }else if (props.stars === '2'){
         return (
 
             <div class="Rating" aria-label="Rating of this item is 3 out of 5">
@@ -30,7 +31,7 @@ function FiveStar(props) {
             </div >
     
         );
-    }else if (props.stars === 3){
+    }else if (props.stars === '3'){
         return (
 
             <div class="Rating" aria-label="Rating of this item is 3 out of 5">
@@ -42,7 +43,7 @@ function FiveStar(props) {
             </div >
     
         );
-    }else if (props.stars === 4){
+    }else if (props.stars === '4'){
         return (
 
             <div class="Rating" aria-label="Rating of this item is 3 out of 5">
@@ -54,7 +55,7 @@ function FiveStar(props) {
             </div >
     
         );
-    }else if (props.stars === 5){
+    }else if (props.stars === '5'){
         return (
 
             <div class="Rating" aria-label="Rating of this item is 3 out of 5">
