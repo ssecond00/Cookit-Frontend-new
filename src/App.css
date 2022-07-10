@@ -1,0 +1,461 @@
+body {
+  background-color: #fdfcf2;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.tiuloBusquedaFiltro {
+  font-family: times, Times New Roman, times-roman, georgia, serif;
+  color: #444;
+  padding: 0px 0px 6px 0px;
+  font-size: 51px;
+  line-height: 44px;
+  letter-spacing: -2px;
+  font-weight: bold;
+  text-align: center;
+}
+
+
+
+
+/* Full-width inputs */
+input[type=text],
+input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.recetaHeader {
+  color: #111;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 50px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-align: center;
+}
+
+.reestablecidaCorrectamente {
+  color: #111;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  letter-spacing: -1px;
+  line-height: 1;
+  text-align: center;
+}
+
+.recetaDescription {
+  color: #111;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 32px;
+  margin: 0 0;
+  text-align: center;
+}
+
+.recetaLabel {
+  color: #111;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+
+.formBorder {
+  border-style: none;
+}
+
+.container {
+  text-align: center;
+
+}
+
+
+
+.itemsListaReceta {
+  color: #111;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+}
+
+.recetaFecha {
+  color: #111;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 32px;
+  margin: 0 0;
+  text-align: center;
+}
+
+.recetaPasoAPaso {
+  color: #111;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  margin: 0 0 24px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+  width: auto;
+  color: black;
+  background-color: #D98880;
+  text-align: center;
+  border: none;
+  padding: 20px 10px;
+  width: 100%;
+  margin: 8px 0;
+  display: block;
+}
+
+.registerbtnreg {
+  background-color: #52BE80;
+  width: auto;
+  color: black;
+  text-align: center;
+  border: none;
+  padding: 20px 10px;
+  width: 100%;
+  margin: 8px 0;
+  display: block;
+}
+
+.logbtn {
+  width: auto;
+  background-color: #D4EFDF;
+  color: black;
+  padding: 20px 10px;
+  text-align: center;
+  width: 100%;
+  border: none;
+  margin: 8px 0;
+  display: block;
+
+
+
+}
+
+.backHomecancelbtn {
+  width: auto;
+  color: black;
+  background-color: #c2c2a3;
+  text-align: center;
+  border: none;
+  padding: 20px 10px;
+  width: 100%;
+  margin: 8px 0;
+  display: block;
+}
+
+
+
+/* Center the avatar image inside this container */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+/* Avatar image */
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+
+  .cancelbtn {
+    width: 100%;
+  }
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+.inputEditPage{
+  width: 50%;
+  padding: 6px;
+  margin: 5px 0 10px 0;
+  background: #f1f1f1;
+}
+.usuarioCreado {
+  text-align: center;
+}
+
+/* Full-width input fields */
+input[type=text],
+input[type=email],
+input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+.registerbtn {
+  width: auto;
+  background-color: #7FB3D5;
+  display: inline-block;
+  color: black;
+  padding: 15px;
+  width: 97%;
+  margin: 5px 0 20px 0;
+  border: none;
+}
+
+input[type=text]:focus,
+input[type=telephone]:focus,
+input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+
+.inputButton {
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  text-align: center;
+  min-height: 44px;
+  min-width: 44px;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.editButton {
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  text-align: center;
+  min-height: 44px;
+  min-width: 44px;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;}
+
+  
+  /* Overwrite default styles of hr */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  .registerbtn:hover {
+    opacity: 1;
+  }
+
+  /* Add a blue text color to links */
+  a {
+    color: dodgerblue;
+  }
+
+  /* Set a grey background color and center the text of the "sign in" section */
+  .signin {
+    background-color: #f1f1f1;
+    text-align: center;
+  }
+
+  .recetaFoto {
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .headerLogo {
+    max-width: 150px;
+    max-height: 150px;
+  }
+
+  .dropbtn {
+    background-color: #6e6e6e;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown:hover .dropbtn {
+    background-color: #a1a1a1;
+  }
+
+
+  .Rating--Star {
+    filter: grayscale(100%);
+    max-width: 20px;
+    max-height: 20px;
+    opacity: .3;
+  }
+
+  .Rating--Star__active {
+    max-width: 20px;
+    max-height: 20px;
+  }
+
+
+  .rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+  }
+
+  .rate:not(:checked)>input {
+    position: absolute;
+    top: -9999px;
+  }
+
+  .rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 50px;
+    color: #ccc;
+  }
+
+  .rate:not(:checked)>label:before {
+    content: '★ ';
+  }
+
+  .rate>input:checked~label {
+    color: #ffc700;
+  }
+
+  .rate:not(:checked)>label:hover,
+  .rate:not(:checked)>label:hover~label {
+    color: #deb217;
+  }
+
+  .rate>input:checked+label:hover,
+  .rate>input:checked+label:hover~label,
+  .rate>input:checked~label:hover,
+  .rate>input:checked~label:hover~label,
+  .rate>label:hover~input:checked~label {
+    color: #c59b08;
+  }
+
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+  }
+
+  .title {
+    color: grey;
+    font-size: 18px;
+  }
+
+  button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+
+  b {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+  }
+
+  button:hover,
+  a:hover {
+    opacity: 0.7;
+  }
+
+
+  .toolbar{
+
+      border-bottom: '1px'
+
+  }
