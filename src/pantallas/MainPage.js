@@ -35,11 +35,11 @@ class MainPage extends React.Component{
 
       
     async  componentDidMount() {
-        const response = await getRecetaById(5);
-        const fp1 = await getFeaturedPosts(2);
-        const fp2 = await getFeaturedPosts(3);
-        const fp3 = await getFeaturedPosts(4);
-        const fp4 = await getFeaturedPosts(5);
+
+        const fp1 = await getFeaturedPosts(12);
+        const fp2 = await getFeaturedPosts(13);
+        const fp3 = await getFeaturedPosts(14);
+        const fp4 = await getFeaturedPosts(15);
 
 
         localStorage.setItem('fp1_title',fp1.featuredPosts.featuredPosts.titulo_receta);
@@ -79,10 +79,10 @@ class MainPage extends React.Component{
                     <FiltrosHome></FiltrosHome>
                     <MainFeaturedPost></MainFeaturedPost>
                     <Grid container spacing={4}>
-                        <FeaturedPost title={localStorage.getItem('fp1_title')} date={localStorage.getItem('fp1_date')} description={localStorage.getItem('fp1_description')} stars={localStorage.getItem('fp1_stars')} ></FeaturedPost>
-                        <FeaturedPost title={localStorage.getItem('fp2_title')} date={localStorage.getItem('fp2_date')} description={localStorage.getItem('fp2_description')} stars={localStorage.getItem('fp2_stars')} ></FeaturedPost>
-                        <FeaturedPost title={localStorage.getItem('fp3_title')} date={localStorage.getItem('fp3_date')} description={localStorage.getItem('fp3_description')} stars={localStorage.getItem('fp3_stars')} ></FeaturedPost>
-                        <FeaturedPost title={localStorage.getItem('fp4_title')} date={localStorage.getItem('fp3_date')} description={localStorage.getItem('fp4_description')} stars={localStorage.getItem('fp4_stars')} ></FeaturedPost>
+                        <FeaturedPost fp={12} title={localStorage.getItem('fp1_title')} date={localStorage.getItem('fp1_date')} description={localStorage.getItem('fp1_description')} stars={localStorage.getItem('fp1_stars')} ></FeaturedPost>
+                        <FeaturedPost fp={13} title={localStorage.getItem('fp2_title')} date={localStorage.getItem('fp2_date')} description={localStorage.getItem('fp2_description')} stars={localStorage.getItem('fp2_stars')} ></FeaturedPost>
+                        <FeaturedPost fp={14} title={localStorage.getItem('fp3_title')} date={localStorage.getItem('fp3_date')} description={localStorage.getItem('fp3_description')} stars={localStorage.getItem('fp3_stars')} ></FeaturedPost>
+                        <FeaturedPost fp={15} title={localStorage.getItem('fp4_title')} date={localStorage.getItem('fp3_date')} description={localStorage.getItem('fp4_description')} stars={localStorage.getItem('fp4_stars')} ></FeaturedPost>
                     </Grid>
                     <Footer title='Cookit' description=''/>
                 </Container>

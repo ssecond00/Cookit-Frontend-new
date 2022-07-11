@@ -5,36 +5,41 @@ import Receta from '../components/Receta';
 import { Container, Grid } from '@material-ui/core';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useParams } from 'react-router-dom';
-import {getRecetaById,getIngredientesFromReceta} from '../controller/ApiController';
+import {getRecetaById,getIngredientesFromReceta, getValoracionesReceta} from '../controller/ApiController';
 
 
 class RecetaPage extends React.Component {
 
+
     constructor(props) {
         super(props);
         // Initializing the state 
-
         this.state = { data: [] };
+        localStorage.setItem('rec',props.id);
       };
 
     async componentDidMount() {
-        const ingredientes = await getIngredientesFromReceta(1);
-        var receta = await getRecetaById(4);
+        
+        const ingredientes = await getIngredientesFromReceta(2);
+        var receta = await getRecetaById(localStorage.getItem('rec'));
+        var valoracion = await getValoracionesReceta(localStorage.getItem('rec'));
 
         localStorage.setItem('title',receta.receta.receta_resp[0].title);
         localStorage.setItem('categoria',receta.receta.receta_resp[0].categoria);
         localStorage.setItem('date',receta.receta.receta_resp[0].date);
         localStorage.setItem('description',receta.receta.receta_resp[0].description);
         localStorage.setItem('dificultad',receta.receta.receta_resp[0].dificultad);
-        localStorage.setItem('estrellas',receta.receta.receta_resp[0].estrellas);
+        localStorage.setItem('estrellas', valoracion.valoracion.stars);
         localStorage.setItem('pasos_a_seguir',receta.receta.receta_resp[0].pasos_a_seguir);
         localStorage.setItem('user',receta.receta.receta_resp[0].user);
         localStorage.setItem('ingredientes', (ingredientes.ingredientes.ingredientes));
+        
 
-
+        console.log(localStorage.getItem('title'));
+       
+        ;
     }
-
-    
+   
 
     render(){
         return (

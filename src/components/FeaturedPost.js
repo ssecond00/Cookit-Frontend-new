@@ -22,6 +22,7 @@ class FeaturedPost extends React.Component{
         localStorage.setItem('desc', props.description);
         localStorage.setItem('date', props.date);
         localStorage.setItem('stars', props.stars);
+        localStorage.setItem('fp_id', props.fp);
         this.state = { data: [] };
       };
 
