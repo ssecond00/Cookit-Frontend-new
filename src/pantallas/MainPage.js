@@ -10,15 +10,6 @@ import FeaturedPost from '../components/FeaturedPost';
 
 
 
-async function getRecetaByIsFromController(id_receta){
-    //console.info("Se busca la receta de id -> ",id_receta);
-    //var receta = await getRecetaById(id_receta);
-    return "hola solo";
-    //.then(data => console.info(data));
-
-   
-}
-
 class MainPage extends React.Component{
 
     cookies = new Cookies();

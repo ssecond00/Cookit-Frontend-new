@@ -18,11 +18,11 @@ class FeaturedPost extends React.Component{
 
     constructor(props) {
         super(props);
-        localStorage.setItem('title', props.title);
-        localStorage.setItem('desc', props.description);
-        localStorage.setItem('date', props.date);
-        localStorage.setItem('stars', props.stars);
-        localStorage.setItem('fp_id', props.fp);
+        localStorage.setItem('title_fp', props.title);
+        localStorage.setItem('desc_fp', props.description);
+        localStorage.setItem('date_fp', props.date);
+        localStorage.setItem('stars_fp', props.stars);
+        localStorage.setItem('fp_id_fp', props.fp);
         this.state = { data: [] };
       };
 
@@ -31,20 +31,20 @@ class FeaturedPost extends React.Component{
       render(){
         return( 
         <Grid item xs={12} md={6}>
-            <CardActionArea component="a" href={"/receta/"+localStorage.getItem('fp_id')}>
+            <CardActionArea component="a" href={"/receta/"+localStorage.getItem('fp_id_fp')}>
               <Card >
                 <div >
                   <CardContent>
                     <Typography component="h2" variant="h5">
-                      {localStorage.getItem('title')}
+                      {localStorage.getItem('title_fp')}
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                      {localStorage.getItem('date')}
+                      {localStorage.getItem('date_fp')}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                    {localStorage.getItem('desc')}
+                    {localStorage.getItem('desc_fp')}
                     </Typography>
-                    <FiveStar stars={localStorage.getItem('stars')}/>
+                    <FiveStar stars={localStorage.getItem('stars_fp')}/>
                     <Typography variant="subtitle1" color="primary">
                       Seguir leyendo...
                     </Typography>

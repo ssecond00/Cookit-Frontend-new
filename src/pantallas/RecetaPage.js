@@ -16,16 +16,17 @@ class RecetaPage extends React.Component {
         // Initializing the state 
         this.state = { data: [] };
         localStorage.setItem('rec',props.id);
+        
       };
 
     async componentDidMount() {
-        
-        const ingredientes = await getIngredientesFromReceta(2);
+
+        var ingredientes = await getIngredientesFromReceta(2);
         var receta = await getRecetaById(localStorage.getItem('rec'));
         var valoracion = await getValoracionesReceta(localStorage.getItem('rec'));
 
         localStorage.setItem('title',receta.receta.receta_resp[0].title);
-        localStorage.setItem('categoria',receta.receta.receta_resp[0].categoria);
+        localStorage.setItem('cgitategoria',receta.receta.receta_resp[0].categoria);
         localStorage.setItem('date',receta.receta.receta_resp[0].date);
         localStorage.setItem('description',receta.receta.receta_resp[0].description);
         localStorage.setItem('dificultad',receta.receta.receta_resp[0].dificultad);
@@ -37,11 +38,14 @@ class RecetaPage extends React.Component {
 
         console.log(localStorage.getItem('title'));
        
-        ;
+        
     }
+
+
    
 
     render(){
+
         return (
             <html>
                 <head>
@@ -69,5 +73,6 @@ class RecetaPage extends React.Component {
         );
     }
 }
+
 
 export default RecetaPage;
