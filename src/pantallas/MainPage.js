@@ -1,5 +1,5 @@
-import React ,  { useState } from 'react';
-import {getRecetaById, getFeaturedPosts} from '../controller/ApiController';
+import React from 'react';
+import {getFeaturedPosts} from '../controller/ApiController';
 import { Container, Grid } from '@material-ui/core';
 import Cookies from 'universal-cookie';
 import Header from '../components/Header';

@@ -254,6 +254,20 @@ input[type=password]:focus {
   outline: none;
 }
 
+.inputButton_2{
+  display: inline-block;
+  outline: 0;
+  cursor: pointer;
+  text-align: center;
+  min-height: 44px;
+  min-width: 44px;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0;
+  color: black;
+  border: none;
+  background: none;
+}
 
 .inputButton {
   display: inline-block;

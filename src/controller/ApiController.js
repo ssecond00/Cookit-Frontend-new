@@ -119,10 +119,8 @@ export const getValoracionesReceta = async function (receta_id){
     }
 }
 
-
-
-export const getRecetasByFiltro = async function (filter_id){
-    let url = urlWebservices.recetaService+'getRecetasByCategoria/'+filter_id;
+export const getRecetasByDificultad = async function (filter_id){
+    let url = urlWebservices.recetaService+'getRecetasByDificultad/'+filter_id;
     try{
         let response = await fetch(
             url,
@@ -178,4 +176,6 @@ export const getAllRecetas = async function (){
         console.log("Ocurrio un error al invocar getFeaturedPosts() ");
     }
 }
+
+
 export default getRecetaById;

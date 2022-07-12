@@ -16,6 +16,8 @@ class RecetaPage extends React.Component {
         // Initializing the state 
         this.state = { data: [] };
         localStorage.setItem('rec',props.id);
+
+
         
       };
 
@@ -26,7 +28,7 @@ class RecetaPage extends React.Component {
         var valoracion = await getValoracionesReceta(localStorage.getItem('rec'));
 
         localStorage.setItem('title',receta.receta.receta_resp[0].title);
-        localStorage.setItem('cgitategoria',receta.receta.receta_resp[0].categoria);
+        localStorage.setItem('categoria',receta.receta.receta_resp[0].categoria);
         localStorage.setItem('date',receta.receta.receta_resp[0].date);
         localStorage.setItem('description',receta.receta.receta_resp[0].description);
         localStorage.setItem('dificultad',receta.receta.receta_resp[0].dificultad);

@@ -21,7 +21,7 @@ export default function Receta(props) {
       <br/>
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <h3 class='recetaLabel'>Categotia: {props.categoria}</h3>
+          <h3 class='recetaLabel'>Categoria: {props.categoria}</h3>
           <h3 class='recetaLabel'>Nivel de dificultad: {props.dificultad}</h3>
           <div>
             <h1>Valoraciones:</h1>
@@ -73,7 +73,7 @@ export default function Receta(props) {
 
         <Grid container spacing={2}>
           <Grid item xs={8}>
-            <h3 class='recetaLabel'>Categotia: {props.categoria}</h3>
+            <h3 class='recetaLabel'>Categoria: {props.categoria}</h3>
             <h3 class='recetaLabel'>Nivel de dificultad: {props.dificultad}</h3>
             <div>
               <h1>Valoraciones:</h1>
