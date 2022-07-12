@@ -7,7 +7,6 @@ import Cookies from 'universal-cookie';
 import "./App.css";
 
 function App() {
-
   return (
     <BrowserRouter>
       <Routes>
