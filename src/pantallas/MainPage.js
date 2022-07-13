@@ -19,6 +19,7 @@ class MainPage extends React.Component{
         super(props);
         // Initializing the state 
         this.state = { data: [] };
+        console.log(this.cookies.get('userLoggedIn'));
       };
 
 

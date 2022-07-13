@@ -16,7 +16,9 @@ class BusquedasFiltros extends React.Component {
     super(props);
     console.log("constructing");
     // Initializing the state
-    this.state = { data: [] };
+    this.state = { busqueda_categoria_ok: false, busqueda_ingrediente_ok: false, ingredienteBuscado: "" };
+    this.handleBuscarIngredientesClick = this.handleBuscarIngredientesClick.bind(this);
+
     localStorage.setItem("filter_id", props.id);
     if (props.id === "1") {
       localStorage.setItem("filter_title", "Todas las recetas");
@@ -88,7 +90,15 @@ class BusquedasFiltros extends React.Component {
   }
 
 
-  
+  async handleBuscarIngredientesClick() {
+    this.setState({ busqueda_ingrediente_ok: true });
+    const recetas_categoria = await getRecetasByDificultad(3);
+    console.log(recetas_categoria);
+    localStorage.setItem(
+      "recetas_ingrediente",
+      JSON.stringify(recetas_categoria.recetas.recetas)
+    );
+  }
 
 
   render() {
@@ -197,6 +207,29 @@ class BusquedasFiltros extends React.Component {
         </div>
       );
     } else if (localStorage.getItem("filter_id") === "5") {
+      if(this.state.busqueda_ingrediente_ok){
+        return(
+          <div>
+          <h1 class="tiuloBusquedaFiltro">
+            {"Resultados para ingrediente: "+ this.state.ingredienteBuscado}
+          </h1>
+          <Grid container spacing={4}>
+            {JSON.parse(localStorage.getItem("recetas_ingrediente")).map(
+              (post) => (
+                <FeaturedPost
+                  title={post.title}
+                  description={post.description}
+                  date={post.date}
+                  stars={post.stars}
+                  fp={post.id}
+                  href={"/receta/" + post.id}
+                />
+              )
+            )}
+          </Grid>
+        </div>
+        );
+      }else{
         return(
             <div>
                 <div>
@@ -205,7 +238,7 @@ class BusquedasFiltros extends React.Component {
                     <br />
                 </div>
                 <div>
-                    <form >
+                    <form onSubmit={this.handleBuscarIngredientesClick} >
                         <label for="uname"><b>Ingrese el Ingrediente buscado</b></label>
                         <input type="text" placeholder="Ingrese aqui..." id='criterio' required></input>
                         <br />
@@ -223,6 +256,7 @@ class BusquedasFiltros extends React.Component {
                 </div>
             </div>
         ); 
+      }
     } else if (localStorage.getItem("filter_id") === "6") {
       return(
           <div>
