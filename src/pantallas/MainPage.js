@@ -19,7 +19,7 @@ class MainPage extends React.Component{
         super(props);
         // Initializing the state 
         this.state = { data: [] };
-        console.log(this.cookies.get('userLoggedIn'));
+        this.cookies.set("busqueda_ingrediente_ok", 1, { path: "/" }); 
       };
 
 

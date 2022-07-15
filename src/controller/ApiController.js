@@ -177,5 +177,62 @@ export const getAllRecetas = async function (){
     }
 }
 
+export const getRecetasByIngredientes = async function(ingrediente){
+    let url = urlWebservices.recetaService+'/getRecetasByIngrediente/'+ingrediente;
+    try{
+        let response = await fetch(
+            url,
+            {
+                method:'GET',
+                mode:'cors'
+            }
+        );
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"ok", recetas: datos});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+        //return  (response);
+    } catch(e){
+        console.log("Ocurrio un error al invocar getFeaturedPosts() ");
+    }
+}
+
+export const getRecetasByCategoria = async function (categoria){
+    let url = urlWebservices.recetaService+'getRecetasByCategoria/'+categoria;
+    try{
+        let response = await fetch(
+            url,
+            {
+                method:'GET',
+                mode:'cors'
+            }
+        );
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"ok", recetas: datos});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+        //return  (response);
+    } catch(e){
+        console.log("Ocurrio un error al invocar getFeaturedPosts() ");
+    }
+}
 
 export default getRecetaById;
