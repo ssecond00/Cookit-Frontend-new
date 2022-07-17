@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Template extends React.Component{
+class EditarReceta extends React.Component{
 
 
     constructor(props) {
@@ -9,8 +9,7 @@ class Template extends React.Component{
         this.state = { data: [] };
       };
 
-    async  componentDidMount() {
-    }
+    
 
     render(){
 
@@ -22,4 +21,4 @@ class Template extends React.Component{
 
 }
 
-export default Template;
+export default EditarReceta;

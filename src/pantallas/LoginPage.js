@@ -7,30 +7,48 @@ import { Button } from '@material-ui/core';
 import BackBtnCenter from "../components/BackButtonCenter";
 import Cookies from "universal-cookie";
 import MainPage from "./MainPage";
+import {getLogin} from "../controller/ApiController"
 
 class LoginPage extends React.Component {
+  
   cookies = new Cookies();
 
   constructor(props) {
     super(props);
+    this.state = { username : '', pass_login : '' , user_logged_in: false};
     this.handleLoginClick = this.handleLoginClick.bind(this);
-    this.state = { isLoggedIn: false };
+
   }
 
-  async componentDidMount() {}
+  
 
-  handleLoginClick() {
-    this.setState({ isLoggedIn: true });
-    this.cookies.set("userLoggedIn", 1, { path: "/" });
+  async handleLoginClick() {
+    console.log(this.state.username);  
+    console.log( this.state.pass_login);
+    const login = await getLogin(this.state.username,this.state.pass_login);
+    
+    if(login.rdo === 0){
+      this.setState({user_logged_in : true});
+      this.cookies.set("flag_login", true, { path: "/" }); 
+
+    }else{
+      window.alert("La contraseña ingresada es incorrecta.");
+    }
+     
   }
+
+
+
 
 
 
   render() {
-    const isLoggedIn = this.state.isLoggedIn;
-    if (isLoggedIn) {
-      return <MainPage />;
-    } else {
+    
+    if(this.state.user_logged_in){
+      return(
+        <MainPage/>
+      );
+    }else{
       return (
         <html>
           <head></head>
@@ -40,7 +58,7 @@ class LoginPage extends React.Component {
               <div>
                 <div>
                   <h1 class="">Iniciar Sesion</h1>
-                  <form onSubmit={this.handleLoginClick}>
+                  <form>
                     <div>
                       <label for="uname">
                         <b>Username</b>
@@ -50,11 +68,12 @@ class LoginPage extends React.Component {
                         placeholder="Enter Username"
                         id="username"
                         name="uname"
+                        onChange={(e) => this.setState({ username: e.target.value })}
                         required
                       ></input>
                     </div>
                     <div>
-                      <label for="psw">
+                      <label for="psw" >
                         <b>Password</b>
                       </label>
                       <input
@@ -65,20 +84,21 @@ class LoginPage extends React.Component {
                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]){8,16}$"
                         minlength="8"
                         maxlength="16"
+                        onChange={(e) => this.setState({ pass_login: e.target.value })}
                         required
                       ></input>
                     </div>
                     <Container>
                       <div class="container">
                         <input
-                          type="submit"
+                          type="button"
+                          onClick={this.handleLoginClick}
                           value="Login"
                           class="logbtn"
                           justify="center"
                           disableTouchRipple={true}
                         ></input>
                         <Button
-                          type="submit"
                           value="Register"
                           class="registerbtn"
                           disableTouchRipple={true}
@@ -98,7 +118,9 @@ class LoginPage extends React.Component {
         </html>
       );
     }
+      
+    }
   }
-}
+
 
 export default LoginPage;

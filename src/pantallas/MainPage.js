@@ -2,7 +2,7 @@ import React from 'react';
 import {getFeaturedPosts} from '../controller/ApiController';
 import { Container, Grid } from '@material-ui/core';
 import Cookies from 'universal-cookie';
-import Header from '../components/Header';
+import Header2 from '../components/Header2';
 import FiltrosHome from '../components/FiltrosHome';
 import MainFeaturedPost from '../components/MainFeaturedPost';
 import Footer from '../components/Footer'
@@ -19,7 +19,11 @@ class MainPage extends React.Component{
         super(props);
         // Initializing the state 
         this.state = { data: [] };
-        this.cookies.set("busqueda_ingrediente_ok", 1, { path: "/" }); 
+        this.cookies.set("user", null, { path: "/" }); 
+        console.log("main",this.cookies.get('flag_login'));
+
+
+
       };
 
 
@@ -60,6 +64,7 @@ class MainPage extends React.Component{
     
 
     render(){
+
         return(
             <html>
             <head>
@@ -67,7 +72,7 @@ class MainPage extends React.Component{
             </head>
             <body>
                 <Container>
-                    <Header></Header>
+                    <Header2></Header2>
                     <FiltrosHome></FiltrosHome>
                     <MainFeaturedPost></MainFeaturedPost>
                     <Grid container spacing={4}>

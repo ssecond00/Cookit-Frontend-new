@@ -263,4 +263,66 @@ export const getRecetaByName = async function(title){
         console.log("Ocurrio un error al invocar getFeaturedPosts() ");
     }
 }
+
+export const getRecetasByUsername = async function(username){
+    let url = urlWebservices.recetaService+'getRecetasFromUser/'+username;
+    try{
+        let response = await fetch(
+            url,
+            {
+                method:'GET',
+                mode:'cors'
+            }
+        );
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"ok", recetas: datos});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+        //return  (response);
+    } catch(e){
+        console.log("Ocurrio un error al invocar getFeaturedPosts() ");
+    }
+}
+
+export const getLogin = async function(email, password){
+    let url = urlWebservices.userService+'GetUsuarioByLogin';
+    const formData = new URLSearchParams();
+    formData.append('mail',email);
+    formData.append('pass',password);
+    try{
+        let response = await fetch(
+            url,
+            {
+                method:'POST',
+                mode:'cors',
+                body:formData
+            }
+        );
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"ok", user: datos});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+        //return  (response);
+    } catch(e){
+        console.log("Ocurrio un error al invocar el login() ");
+    }
+}
 export default getRecetaById;

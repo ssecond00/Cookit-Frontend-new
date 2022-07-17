@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import MainPage from '../pantallas/MainPage';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -38,17 +39,21 @@ const sections = [
 ];
 
 
-const cookies = new Cookies();
+
 
 
 function Header(props) {
+
   const { sesionIniciada } = props;
   const classes = useStyles();
   const navigate = useNavigate();
+  const cookies = new Cookies();
 
   const logOut = () => {
-    cookies.set('userLoggedIn', 0, { path: '/' });
-    navigate("/");
+
+    cookies.set("flag_login", false, { path: "/" }); 
+
+
   }
 
   window.onclick = function (event) {
@@ -64,8 +69,8 @@ function Header(props) {
     }
   }
 
-
-  if (cookies.get('userLoggedIn') === '1') {
+  if (cookies.get("flag_login")) {
+    console.log("header",cookies.get("flag_login"));
     return (
       <React.Fragment>
         <Toolbar className={classes.toolbar}>
@@ -86,7 +91,7 @@ function Header(props) {
               <a href="/mi_perfil">Mi Perfil</a>
               <a href="/mis_recetas">Mis Recetas</a>
               <a href="/crear_receta">Cargar Receta</a>
-              <a href="/" onClick={logOut} >Salir</a>
+              <a type="button" onClick={logOut} href="/" >Salir</a>
             </div>
           </div>
 
@@ -127,7 +132,7 @@ function Header(props) {
             className={classes.toolbarTitle}
           >
           </Typography>
-          <Button variant="outlined" size="small" href='/login' onClick={() => App.SetSesion(true)}>
+          <Button variant="outlined" size="small" href='/login'>
             Iniciar Sesion
           </Button>
         </Toolbar>
