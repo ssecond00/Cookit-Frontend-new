@@ -2,6 +2,7 @@ import React from "react";
 import { Container } from "@mui/system";
 import BackBtnCenter from "./BackButtonCenter";
 import { Button } from "@mui/material";
+import {uploadImage} from "../controller/ApiController";
 
 class CargarReceta extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class CargarReceta extends React.Component {
         receta_pasos: "",
         receta_ingredientes: [],
         receta_photo: "",
+        receta_photo_name : ""
 
     };
 
@@ -27,10 +29,19 @@ class CargarReceta extends React.Component {
   }
 
 
-   carga_receta_backend(){
+   async carga_receta_backend(){
     console.log(this.state.receta_photo);
-    this.setState({ receta_cargada_ok: true})
-    this.render()
+
+
+
+
+    if(this.state.receta_photo.size >= 3100000){
+      window.alert("La imagen es muy pesada! ingrese otra.");
+    }else{
+      var cargarReceta = await uploadImage(this.state.receta_photo);
+      this.setState({ receta_cargada_ok: true})
+     
+    }
 
   }
 
@@ -44,16 +55,16 @@ class CargarReceta extends React.Component {
         return(
             <Container>
                 <h1>Se cargo la receta correctamente!</h1>
+                <h2>{this.state}</h2>
                 <BackBtnCenter />
             </Container>
             
         );
     }else{
-        console.log(this.state.receta_cargada_ok);
         return (
             <Container>
               <h1>¿Tiene una receta innovadora?</h1>
-                      <form onSubmit={this.carga_receta_backend}>
+                      <form >
                           <p>Complete el siguiente formulario para compartirla la gente de CookIT!</p>
       
                           <label for="nombrereceta"><b>Nombre de la receta</b></label>
@@ -83,13 +94,13 @@ class CargarReceta extends React.Component {
                           <label for="Image"><b>Cargar Imagen</b></label>
                           <br/>
                           <br/>
-                          <input type="file" name="myImage" onChange={(e) => this.setState({ receta_photo: e.target.value })}  required/>
+                          <input type="file" name="myImage" onChange={(e) => {this.setState({ receta_photo: e.target.files[0] }); this.setState({ receta_photo_name : e.target.value})}}  required/>
                           <br/>
                           <br/>
       
       
                           <p>Al dar de alta una receta, estas aceptando compartirla con el resto de los usuarios de CookIt.</p>
-                          <input type="submit" class="registerbtnreg" value="Cargar receta!" ></input>
+                          <input type="button" onClick={this.carga_receta_backend} class="registerbtnreg" value="Cargar receta!" ></input>
                       </form>
                       <BackBtnCenter />
                   

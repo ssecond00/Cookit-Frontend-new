@@ -325,4 +325,42 @@ export const getLogin = async function(email, password){
         console.log("Ocurrio un error al invocar el login() ");
     }
 }
+
+export const uploadImage = async function(image, name){
+    let url = urlWebservices.imageService+'uploadImage';
+    const formData = new URLSearchParams();
+    formData.append('image',image);
+    try{
+        let response = await fetch(
+            url,
+            {
+                method:'POST',
+                mode:'cors',
+                headers:{
+                    'Accept':'application/form-data',
+                    'Origin':'http://localhost:3000'
+                },
+                body:formData
+            }
+        );
+        let rdo = response.status;
+        let datos = await response.json();
+        console.log(datos)
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"ok", user: datos});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+
+    } catch(e){
+        console.log("Ocurrio un error al invocar el login() ");
+    } 
+}
+
 export default getRecetaById;
