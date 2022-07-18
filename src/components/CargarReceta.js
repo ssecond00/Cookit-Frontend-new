@@ -28,7 +28,7 @@ class CargarReceta extends React.Component {
 
 
    carga_receta_backend(){
-    console.log(this.state);
+    console.log(this.state.receta_photo);
     this.setState({ receta_cargada_ok: true})
     this.render()
 

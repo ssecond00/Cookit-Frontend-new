@@ -27,15 +27,14 @@ class BusquedasFiltros extends React.Component {
       ingredienteBuscado: "",
       categoriaBuscada: "",
       busqueda: "",
-      recetaBusqueda: {}
+      recetaBusqueda: [],
+      recetasCategoria: [],
+
     };
+
     this.handleBuscarIngredientesClick = this.handleBuscarIngredientesClick.bind(this);
     this.handleBuscarCategoria = this.handleBuscarCategoria.bind(this);
     this.handleBuscarReceta = this.handleBuscarReceta.bind(this);
-
-    
-
-
     this.todasLasRecetas = this.todasLasRecetas.bind(this);
     this.recetasFaciles = this.recetasFaciles.bind(this);
     this.recetasIntermedias = this.recetasIntermedias.bind(this);
@@ -141,12 +140,8 @@ class BusquedasFiltros extends React.Component {
   async buscarPorCategoria(){
     //Recetas categoria  this.state.categoriaBuscada
     const recetas_categoria = await getRecetasByCategoria(this.state.categoriaBuscada);
-    
-    localStorage.setItem(
-      "recetas_categoria",
-      JSON.stringify(recetas_categoria.recetas.recetas)
-    );
 
+    this.setState({ recetasCategoria : recetas_categoria.recetas.recetas })
     if (recetas_categoria.recetas.recetas.length !== 0) {
       this.setState({ loading: false });
       this.render();
@@ -159,14 +154,15 @@ class BusquedasFiltros extends React.Component {
 
   async buscarReceta(){
     const recetas_busqueda = await getRecetaByName(this.state.busqueda);
-    console.log(recetas_busqueda.recetas.receta)
-    localStorage.setItem(
-      "recetas_busqueda", JSON.stringify(recetas_busqueda.recetas.receta)
-    );
-    
-    if (recetas_busqueda.rdo === 0 ) {
+
+    if (await recetas_busqueda.rdo === 0) {
+      localStorage.setItem(
+        "recetas_busqueda",
+        JSON.stringify(recetas_busqueda.recetas.receta)
+      );
       this.setState({ loading: false });
       this.render();
+      
     } else{
       this.setState({ loading: false });
       this.setState({ not_found: true});
@@ -175,15 +171,15 @@ class BusquedasFiltros extends React.Component {
 
   }
 
-
   async handleBuscarIngredientesClick() {
     this.setState({ busqueda_ingrediente_ok :  true });
     this.buscarPorIngrediente();
   }
 
   async handleBuscarCategoria(){
-    this.setState({ busqueda_categoria_ok : true});
     this.buscarPorCategoria();
+    this.setState({ busqueda_categoria_ok : true});
+    
   }
   
   async handleBuscarReceta(){
@@ -195,7 +191,7 @@ class BusquedasFiltros extends React.Component {
 
   render() {
     if (this.state.loading) {
-      return <h1></h1>;
+      return <h1 class="tiuloBusquedaFiltro">No pudimos cargar las recetas {':('}</h1>;
     } else {
       if (localStorage.getItem("filter_id") === "1") {
         return (
@@ -359,6 +355,7 @@ class BusquedasFiltros extends React.Component {
               <h1 class="tiuloBusquedaFiltro">{'No pudimos encontrar la receta! :('}</h1>
             );
           }else{
+
             return (
               <div>
                 <h1 class="tiuloBusquedaFiltro">
@@ -366,19 +363,17 @@ class BusquedasFiltros extends React.Component {
                     this.state.categoriaBuscada}
                 </h1>
                 <Grid container spacing={4}>
-                  {JSON.parse(localStorage.getItem("recetas_categoria")).map(
-                    (post) => (
-                      
-                      <FeaturedPost
-                        title={post.title}
-                        description={post.description}
-                        date={post.date}
-                        stars={post.stars}
-                        fp={post.id}
-                        href={"/receta/" + post.id}
-                      />
-                    )
-                  )}
+                {this.state.recetasCategoria.map(
+                  (post_receta) => (
+                    <FeaturedPost
+                      title={post_receta.title}
+                      description={post_receta.description}
+                      date={post_receta.date}
+                      stars={post_receta.stars}
+                      fp={post_receta.id}
+                      href={"/receta/" + post_receta.id} />
+                  )
+                )}
                 </Grid>
               </div>
             );
@@ -420,12 +415,14 @@ class BusquedasFiltros extends React.Component {
         }
        
       } else if (localStorage.getItem("filter_id") === "7") {
+        
         if(this.state.busqueda_receta_ok){
           if(this.state.not_found){
             return(
               <h1 class="tiuloBusquedaFiltro">{'No pudimos encontrar la receta! :('}</h1>
             );
           }else{
+
             return (
               <div>
                 <h1 class="tiuloBusquedaFiltro">
@@ -434,9 +431,14 @@ class BusquedasFiltros extends React.Component {
                 </h1>
                 <Grid container spacing={4}>
                   
-                      
+                      <FeaturedPost
+                        title={JSON.parse(localStorage.getItem("recetas_busqueda")).title}
+                        description={JSON.parse(localStorage.getItem("recetas_busqueda")).description}
+                        date={JSON.parse(localStorage.getItem("recetas_busqueda")).date}
+                        stars={JSON.parse(localStorage.getItem("recetas_busqueda")).stars}
+                        fp={JSON.parse(localStorage.getItem("recetas_busqueda")).id}
+                        href={"/receta/" + JSON.parse(localStorage.getItem("recetas_busqueda")).id} />
                     
-                  
                 </Grid>
               </div>
             );
@@ -450,7 +452,7 @@ class BusquedasFiltros extends React.Component {
                 <br />
               </div>
               <div>
-                <form onSubmit={this.handleBuscarReceta} onChange={(e) => this.setState({ busqueda: e.target.value })}>
+                <form onSubmit={this.handleBuscarReceta} >
                   <label for="uname">
                     <b>Ingrese el nombre de la receta</b>
                   </label>
@@ -458,7 +460,9 @@ class BusquedasFiltros extends React.Component {
                     type="text"
                     placeholder="Ingrese aqui..."
                     id="criterio"
+                    onChange={(e) => this.setState({ busqueda: e.target.value })}
                     required
+
                   ></input>
                   <br />
                   <Grid

@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Grid } from "@material-ui/core";
-import Header from "../components/Header";
+import Header from "../components/Header2";
 import BackButtonCenter from "./BackButtonCenter";
 import Footer from "../components/Footer";
 

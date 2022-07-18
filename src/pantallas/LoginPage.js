@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../components/Footer";
 import { Container } from "@material-ui/core";
-import Header from "../components/Header";
+import Header from "../components/Header2";
 import { useNavigate } from "react-router-dom";
 import { Button } from '@material-ui/core';
 import BackBtnCenter from "../components/BackButtonCenter";
@@ -96,7 +96,6 @@ class LoginPage extends React.Component {
                           value="Login"
                           class="logbtn"
                           justify="center"
-                          disableTouchRipple={true}
                         ></input>
                         <Button
                           value="Register"
