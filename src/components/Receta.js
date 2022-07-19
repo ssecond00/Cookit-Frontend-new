@@ -11,7 +11,7 @@ import Cookies from 'universal-cookie';
 export default function Receta(props) {
   const cookies = new Cookies();
 
-
+  console.log(props.image)
   if (cookies.get('userLoggedIn') === '1') {
     return (<div>
       <h1 class='recetaHeader'>{props.title}</h1>

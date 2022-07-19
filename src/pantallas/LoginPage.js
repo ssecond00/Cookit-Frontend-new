@@ -30,7 +30,7 @@ class LoginPage extends React.Component {
     if(login.rdo === 0){
       this.setState({user_logged_in : true});
       this.cookies.set("flag_login", true, { path: "/" }); 
-
+      this.cookies.set("logged_username", this.state.username, { path: "/" });
     }else{
       window.alert("La contraseña ingresada es incorrecta.");
     }

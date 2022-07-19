@@ -13,9 +13,7 @@ class Header2 extends React.Component{
     constructor(props) {
         super(props);
         // Initializing the state 
-        console.log("asd", props.hideLoginButton);
         this.state = { user_logged_in : this.cookies.get('flag_login'), hide_login_button: props.hideLoginButton };
-        console.log("Header",this.cookies.get('flag_login'))
         this.logOut = this.logOut.bind(this);
 
       };

@@ -9,7 +9,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Hidden from '@material-ui/core/Hidden';
 import FiveStar from './FiveStar.js';
-import {getFeaturedPosts} from '../controller/ApiController';
 
 class FeaturedPost extends React.Component{
 
@@ -18,15 +17,18 @@ class FeaturedPost extends React.Component{
 
     constructor(props) {
         super(props);
+
+        this.state = { data: [] };
         localStorage.setItem('title_fp', props.title);
         localStorage.setItem('desc_fp', props.description);
         localStorage.setItem('date_fp', props.date);
         localStorage.setItem('stars_fp', props.stars);
         localStorage.setItem('fp_id_fp', props.fp);
-        this.state = { data: [] };
+        localStorage.setItem('fp_foto', props.foto);
+      
       };
 
-
+      
 
       render(){
         return( 
@@ -44,12 +46,15 @@ class FeaturedPost extends React.Component{
                     <Typography variant="subtitle1" paragraph>
                     {localStorage.getItem('desc_fp')}
                     </Typography>
-                    <FiveStar stars={localStorage.getItem('stars_fp')}/>
+                    <FiveStar stars={(localStorage.getItem('stars_fp')).toString()}/>
                     <Typography variant="subtitle1" color="primary">
                       Seguir leyendo...
                     </Typography>
                   </CardContent>
                 </div>
+                <Hidden xsDown>
+                  <CardMedia image={localStorage.getItem('fp_foto')} title={"featured post"} />
+                </Hidden>
               </Card>
             </CardActionArea>
           </Grid>);

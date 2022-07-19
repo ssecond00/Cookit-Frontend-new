@@ -181,6 +181,11 @@ img.avatar {
   border-radius: 50%;
 }
 
+img{
+  width:100%;
+  max-width:600px;
+}
+
 /* Add padding to containers */
 .container {
   padding: 16px;

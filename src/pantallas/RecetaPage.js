@@ -5,7 +5,7 @@ import Receta from '../components/Receta';
 import { Container, Grid } from '@material-ui/core';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useParams } from 'react-router-dom';
-import {getRecetaById,getIngredientesFromReceta, getValoracionesReceta} from '../controller/ApiController';
+import {getRecetaById,getIngredientesFromReceta, getValoracionesReceta, getFoto} from '../controller/ApiController';
 
 
 class RecetaPage extends React.Component {
@@ -27,9 +27,11 @@ class RecetaPage extends React.Component {
 
 
     async cargarDataReceta() {
+
         var ingredientes = await getIngredientesFromReceta(localStorage.getItem('rec'));
         var receta = await getRecetaById(localStorage.getItem('rec'));
         var valoracion = await getValoracionesReceta(localStorage.getItem('rec'));
+        var foto = await getFoto(localStorage.getItem('rec'));
 
         await localStorage.setItem('title',receta.receta.receta_resp[0].title);
         await localStorage.setItem('categoria',receta.receta.receta_resp[0].categoria);
@@ -40,13 +42,12 @@ class RecetaPage extends React.Component {
         await localStorage.setItem('pasos_a_seguir',receta.receta.receta_resp[0].pasos_a_seguir);
         await localStorage.setItem('user',receta.receta.receta_resp[0].user);
         await localStorage.setItem('ingredientes', (ingredientes.ingredientes.ingredientes));
+        await localStorage.setItem('foto', (foto.foto.response));
         if(receta.receta.status === 200){
-            console.log("Llego la receta");
             this.setState({ loading: false  });
             this.render();
         }
         
-        console.log("localstorage antes del render: ", localStorage.getItem('title'));
       }
    
 
@@ -73,7 +74,7 @@ class RecetaPage extends React.Component {
                             dificultad={localStorage.getItem('dificultad')}
                             estrellas={localStorage.getItem('estrellas')}
                             ingredientes={localStorage.getItem('ingredientes').split(',')}
-                            image=""
+                            image={localStorage.getItem('foto')}
                             pasos_a_seguir={localStorage.getItem('pasos_a_seguir')}
                             ></Receta>
                             <Footer />

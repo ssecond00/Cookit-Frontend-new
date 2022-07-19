@@ -326,41 +326,251 @@ export const getLogin = async function(email, password){
     }
 }
 
-export const uploadImage = async function(image, name){
+export const uploadImage = async function(files, nombres){
+    //url webservices
     let url = urlWebservices.imageService+'uploadImage';
+  
+
+    const formData = new FormData();
+    //agrego archivos para subir
+    formData.append('files', files, nombres)
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Accept':'application/form-data',
+                'Origin':'http://localhost:3000',
+            },
+            body:formData
+        });
+    
+        let archivos = await response.json()
+        return archivos;
+    } catch (err) {
+        alert('Error uploading the files')
+    }
+   
+}
+
+export const guardarImgUser = async function(message, receta_id){
+    let url = urlWebservices.imageService+'guardarImgUser';
+
     const formData = new URLSearchParams();
-    formData.append('image',image);
-    try{
-        let response = await fetch(
-            url,
-            {
-                method:'POST',
-                mode:'cors',
-                headers:{
-                    'Accept':'application/form-data',
-                    'Origin':'http://localhost:3000'
-                },
-                body:formData
-            }
-        );
+    formData.append('email', message.email);
+    formData.append('nombreImagen',message.imagen);
+    formData.append('receta_id', receta_id);
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Accept':'application/x-www-form-urlencoded',
+                'Origin':'http://localhost:3000',
+                'Content-Type': 'application/x-www-form-urlencoded'},
+            body:formData
+        });
+        
+        let datos = await response.json();
+        if (response.status===201)
+        {
+            return( {rdo:0, mensaje:"ok", infor : datos});
+        }
+        else
+        {
+           return false; 
+        }
+    }
+    catch(error)
+    {
+        console.log("error",error);
+        return false;
+    };
+}
+
+export const cargarReceta = async function(title, date, user,dificultad,estrellas,categoria,pasos_a_seguir,description){
+    let url = urlWebservices.recetaService+'createReceta';
+
+
+    var bodyRequest = {
+        'title': title,
+        'date' : date,
+        'user': user,
+        'dificultad': dificultad,
+        'estrellas': estrellas,
+        'pasos_a_seguir': pasos_a_seguir,
+        'categoria': categoria, 
+        'description': description
+
+    }
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(bodyRequest)
+        });
+    
         let rdo = response.status;
         let datos = await response.json();
-        console.log(datos)
         switch(rdo)
         {
                 case 200:
                     {
-                        return( {rdo:0, mensaje:"ok", user: datos});
+                        return( {rdo:0, mensaje:"ok", recetas: datos});
                     }
                 default:
                     {
                         return({rdo:1, mensaje:"Ocurrio un error"});
                     }
         }
-
-    } catch(e){
-        console.log("Ocurrio un error al invocar el login() ");
-    } 
+    } catch (err) {
+        console.log('Error creando receta', err)
+    }
 }
+
+export const cargarfotoUrl = async function(receta_id, foto_url){
+    let url = urlWebservices.recetaService+'addfotoToReceta';
+
+
+    var bodyRequest = {
+        'receta_id':receta_id,
+        'foto_url':foto_url
+
+    }
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(bodyRequest)
+        });
+    
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"ok", recetas: datos});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+    } catch (err) {
+        console.log('Error creando receta', err)
+    }
+}
+
+export const getFoto = async function (receta_id){
+    let url = urlWebservices.recetaService+'getFoto/'+receta_id;
+    try{
+        let response = await fetch(
+            url,
+            {
+                method:'GET',
+                mode:'cors'
+            }
+        );
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"ok", foto: datos});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+        //return  (response);
+    } catch(e){
+        console.log("Ocurrio un error al invocar getFeaturedPosts() ");
+    }
+}
+
+export const getFp = async function (){
+    let url = urlWebservices.recetaService+'getMainPageFeaturedPosts';
+    try{
+        let response = await fetch(
+            url,
+            {
+                method:'GET',
+                mode:'cors'
+            }
+        );
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"ok", fp: datos});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+        //return  (response);
+    } catch(e){
+        console.log("Ocurrio un error al invocar getFeaturedPosts() ");
+    }
+}
+
+
+export const cargarIngs = async function(receta_id, ingredientes){
+    let url = urlWebservices.recetaService+'addIngrediente';
+
+    console.log("estan llegando asi los ingredientes:", ingredientes);
+    var bodyRequest = {
+        'receta_id': receta_id,
+        'ingrediente_nuevo' : ingredientes
+    }
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(bodyRequest)
+        });
+    
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"se cargaron los ingredientes correctamente"});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+    } catch (err) {
+        console.log('Error creando receta', err)
+    }
+}
+
 
 export default getRecetaById;
