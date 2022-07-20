@@ -18,9 +18,8 @@ class MiPerfilPage extends React.Component {
         <head></head>
         <body>
           <Container>
-            <Header hideLoginButton={true} />
+            <Header />
             <MiPerfil/>
-            <BackButtonCenter />
             <Footer />
           </Container>
         </body>

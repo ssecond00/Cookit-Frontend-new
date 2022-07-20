@@ -5,7 +5,7 @@ import RecetasPorFiltroPage from "./pantallas/RecetasPorFiltroPage";
 import LoginPage from "./pantallas/LoginPage";
 import RegisterPage from "./pantallas/RegisterPage";
 import AcercaDe from "./components/AcercaDe";
-import MiPerfilPage from "./components/MiPerfil"
+import MiPerfilPage from "../src/pantallas/MiPerfilPage"
 import RecetaPage from "./pantallas/RecetaPage";
 import Cookies from 'universal-cookie';
 import EditarReceta from "./components/EditarReceta";

@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-
+import {valorarReceta} from '../controller/ApiController'
 
 
 
@@ -7,28 +7,35 @@ function ValorarReceta(props) {
 
     const [valoracion, setValoracion] = React.useState(0);
 
+    console.log(props.id_receta);
 
+
+    const valorar_receta_backend = async function ( valoracion) {
+        
+        let valorar = await valorarReceta(props.id_receta, valoracion);
+        console.log(valorar.rdo);
+        if (valorar.rdo === 0) {
+            window.alert("Se guardo tu valoracion de "+ valoracion + " estrellas!");
+
+    
+        }
+      };
 
     const valorarReceta1 = () => {
-        window.alert("Se guardo tu valoracion de 1 estrella!");
-        setValoracion(1);
+        valorar_receta_backend(1);
     }
     const valorarReceta2 = () => {
-        window.alert("Se guardo tu valoracion de 2 estrella!");
-        setValoracion(2);
+        valorar_receta_backend(2);
     }
     
     const valorarReceta3 = () => {
-        window.alert("Se guardo tu valoracion de 3 estrellas!");
-        setValoracion(3);
+        valorar_receta_backend(3);
     }
     const valorarReceta4 = () => {
-        window.alert("Se guardo tu valoracion de 4 estrellas!");
-        setValoracion(4);
+        valorar_receta_backend(4);
     }
     const valorarReceta5 = () => {
-        window.alert("Se guardo tu valoracion de 5 estrellas!");
-        setValoracion(5);
+        valorar_receta_backend(5);
     }
 
     return (

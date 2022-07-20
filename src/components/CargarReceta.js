@@ -66,7 +66,7 @@ class CargarReceta extends React.Component {
       var cargar_data_receta = await cargarReceta(
         this.state.receta_title,
         date.toString().substring(4, 15),
-        this.cookies.get("logged_username"),
+        this.cookies.get("user_logged"),
         this.state.receta_dificultad,
         5,
         this.state.receta_categoria,

@@ -17,44 +17,35 @@ class FeaturedPost extends React.Component{
 
     constructor(props) {
         super(props);
-
-        this.state = { data: [] };
-        localStorage.setItem('title_fp', props.title);
-        localStorage.setItem('desc_fp', props.description);
-        localStorage.setItem('date_fp', props.date);
-        localStorage.setItem('stars_fp', props.stars);
-        localStorage.setItem('fp_id_fp', props.fp);
-        localStorage.setItem('fp_foto', props.foto);
-      
+        this.state = { id: props.fp, title: props.title, date:props.date, description:props.description, estrellas: props.stars, foto: props.foto };
       };
 
-      
 
       render(){
         return( 
         <Grid item xs={12} md={6}>
-            <CardActionArea component="a" href={"/receta/"+localStorage.getItem('fp_id_fp')}>
+            <CardActionArea component="a" href={"/receta/"+this.state.id}>
               <Card >
                 <div >
                   <CardContent>
                     <Typography component="h2" variant="h5">
-                      {localStorage.getItem('title_fp')}
+                      {this.state.title}
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                      {localStorage.getItem('date_fp')}
+                      {this.state.date}
                     </Typography>
                     <Typography variant="subtitle1" paragraph>
-                    {localStorage.getItem('desc_fp')}
+                    {this.state.description}
                     </Typography>
-                    <FiveStar stars={(localStorage.getItem('stars_fp')).toString()}/>
+                    <FiveStar stars={this.state.estrellas}/>
                     <Typography variant="subtitle1" color="primary">
                       Seguir leyendo...
                     </Typography>
+                    <CardMedia id="cont" >
+                      <img class="img_fp" src={this.state.foto}  />
+                    </CardMedia>
                   </CardContent>
                 </div>
-                <Hidden xsDown>
-                  <CardMedia image={localStorage.getItem('fp_foto')} title={"featured post"} />
-                </Hidden>
               </Card>
             </CardActionArea>
           </Grid>);

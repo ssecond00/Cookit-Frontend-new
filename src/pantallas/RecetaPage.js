@@ -66,6 +66,7 @@ class RecetaPage extends React.Component {
                         <Container>
                             <Header hideLoginButton={true}/>
                             <Receta
+                            id_receta={localStorage.getItem('rec')}
                             title={localStorage.getItem('title')}
                             description={localStorage.getItem('description')}
                             date={localStorage.getItem('date')}

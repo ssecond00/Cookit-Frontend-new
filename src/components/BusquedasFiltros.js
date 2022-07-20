@@ -190,6 +190,7 @@ class BusquedasFiltros extends React.Component {
 
 
   render() {
+    console.log(JSON.parse(localStorage.getItem("all_recetas")));
     if (this.state.loading) {
       return <h1 class="tiuloBusquedaFiltro">No pudimos cargar las recetas {':('}</h1>;
     } else {

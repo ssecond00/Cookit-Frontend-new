@@ -573,4 +573,159 @@ export const cargarIngs = async function(receta_id, ingredientes){
 }
 
 
+
+export const registrarUsuario = async function(email, username, phone_number, pass1, name ){
+    let url = urlWebservices.userService+'CreateUser';
+    var bodyRequest = {
+        'email': email,
+        'password' : pass1,
+        'username': username,
+        'phone_number' : phone_number,
+        'nombre': name
+    }
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(bodyRequest)
+        });
+    
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"se cargaron los ingredientes correctamente"});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+    } catch (err) {
+        console.log('Error creando receta', err)
+    }
+}
+
+
+export const updateReceta = async function(id_receta, title, date, user,dificultad,estrellas,categoria,pasos_a_seguir,description){
+    let url = urlWebservices.recetaService+'updateReceta';
+
+
+    var bodyRequest = {
+        'id_receta':id_receta,
+        'title': title,
+        'fecha' : date,
+        'usuario': user,
+        'dif': dificultad,
+        'est': estrellas,
+        'pasos': pasos_a_seguir,
+        'cat': categoria, 
+        'desc': description,
+        'crat': new Date(),
+        'upat': new Date()
+
+    }
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(bodyRequest)
+        });
+    
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"Receta actualizada correctamente", recetas: datos});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+    } catch (err) {
+        console.log('Error creando receta', err)
+    }
+}
+
+export const valorarReceta = async function(id_receta, valoracion ){
+    let url = urlWebservices.recetaService+'addValoraciontoReceta';
+    var bodyRequest = {
+        'receta_id': id_receta,
+        'valoracion' : valoracion
+    }
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(bodyRequest)
+        });
+    
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"se cargo la valoracion correctamente"});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+    } catch (err) {
+        console.log('Error creando receta', err)
+    }
+}
+
+export const eliminarReceta = async function(id_receta ){
+    let url = urlWebservices.recetaService+'deleteRecetaById/'+id_receta;
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'DELETE', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
+    
+        let rdo = response.status;
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"se elimino la receta correctamente"});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+    } catch (err) {
+        console.log('Error creando receta', err)
+    }
+}
+
 export default getRecetaById;

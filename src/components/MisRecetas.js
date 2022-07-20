@@ -9,16 +9,21 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import FiveStar from '../components/FiveStar';
 import { FaEdit, FaTrash } from "react-icons/fa";
- 
-import {getRecetasByUsername} from '../controller/ApiController'
+import Cookies from "universal-cookie";
+import {getRecetasByUsername, eliminarReceta} from '../controller/ApiController'
 
 class MisRecetas extends React.Component {
+
+  
+  cookies = new Cookies();
+
   constructor(props) {
     super(props);
     this.state = {
       editar_receta_ok: false,
       eliminar_receta_ok: false,
-      id_receta_a_editar: '',
+      id_receta_a_editar: 0,
+      id_receta_a_eliminar: 0,
       recetas_user: []
     };
     this.cargarRecetasFromUser = this.cargarRecetasFromUser.bind(this);
@@ -36,14 +41,20 @@ class MisRecetas extends React.Component {
     this.render();
   }
 
-  deleteReceta(){
-    this.setState({  eliminar_receta_ok : true})
-    this.render();
+  async deleteReceta(id){
+    var eliminar = await eliminarReceta(id);
+    if(eliminar.rdo === 0){
+
+      this.setState({  eliminar_receta_ok : true})
+      this.render();
+    }
+    
   }
 
   async cargarRecetasFromUser(){
-    var recetas = await getRecetasByUsername('ssecons912');
+    var recetas = await getRecetasByUsername(this.cookies.get("user_logged"));
     this.setState({ recetas_user : recetas.recetas.recetas });
+    this.render()
   }
 
   async updateReceta_back(){
@@ -61,7 +72,7 @@ class MisRecetas extends React.Component {
                     <br />
                     <form onSubmit={this.updateReceta_back}>
                         <label for="nombrereceta"><b>Nombre de la receta</b></label>
-                        <input type="text"  name="nombrereceta" id="nombrereceta"></input>
+                        <input type="text"  name="nombrereceta" id="nombrereceta" value={"asdasdasd"}></input>
 
                         <label for="descripcion"><b>Breve descripcion</b></label>
                         <input type="text"  name="descripcion" id="descripcion" ></input>
@@ -92,6 +103,7 @@ class MisRecetas extends React.Component {
 
         );
     } else {
+        console.log(this.state.recetas_user)
         if(this.state.recetas_user.length !== 0){
             return (
                 <Container>
@@ -125,11 +137,10 @@ class MisRecetas extends React.Component {
                         <Grid item xs={9} md={7}  >
                             {
                                 this.state.recetas_user.map( r =>(
-                                    
-                                    <CardActionArea component="a" >
+                                    <CardActionArea component="a"  >
                                     <Card  >
                                         <div>
-                                            <CardContent >
+                                            <CardContent  href={'/receta/'+r.id}>
                                                 <Typography component="h2" variant="h5">{r.title}</Typography>
                                                 <Typography variant="subtitle1" color="textSecondary">{r.date}</Typography>
                                                 <Typography variant="subtitle1" paragraph>{r.description}</Typography>
@@ -140,15 +151,13 @@ class MisRecetas extends React.Component {
                                                         <FaEdit  size="30%" onClick={this.editReceta}/>
                                                     </Grid>
                                                     <Grid item xs={4}>
-                                                        <FaTrash  size="25%" onClick={this.deleteReceta} />
+                                                        <FaTrash  size="25%"  onClick={() => this.deleteReceta(r.id)}  />
                                                     </Grid>
                                                 </Grid>
                                             </CardContent>
                                         </div>                            
                                     </Card>
                                 </CardActionArea>
-                                    
-
                                 ))
                             }
                            
@@ -161,6 +170,10 @@ class MisRecetas extends React.Component {
                   </div>
                 </Container>
               );
+        }else{
+          return(
+            <h1>No posee recetas!</h1>
+          );
         }
     }
   }

@@ -7,12 +7,12 @@ import Cookies from 'universal-cookie';
 
 
 
-
 export default function Receta(props) {
   const cookies = new Cookies();
 
-  console.log(props.image)
-  if (cookies.get('userLoggedIn') === '1') {
+  console.log(props.id_receta)
+
+  if (cookies.get('flag_login') === 'true') {
     return (<div>
       <h1 class='recetaHeader'>{props.title}</h1>
       <h2 class='recetaDescription' >{props.description}</h2>
@@ -39,9 +39,9 @@ export default function Receta(props) {
           }
           </ul>
         </Grid>
-        <Grid item xs={6}>
-          <img src={props.image} />
-        </Grid>
+        <Grid item xs={4}>
+            <img src={props.image} />
+          </Grid>
       </Grid>
       <hr />
       <h3 class='recetaLabel'>Procedimiento: </h3>
@@ -58,10 +58,8 @@ export default function Receta(props) {
 
       <div>
         <h1>Valorar receta:</h1>
-        <ValorarReceta />
+        <ValorarReceta id_receta={props.id_receta} />
       </div>
-
-
       <BackButton />
     </div>);
   } else {
