@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FiveStar from '../components/FiveStar';
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Cookies from "universal-cookie";
-import {getRecetasByUsername, eliminarReceta} from '../controller/ApiController'
+import {getRecetasByUsername, eliminarReceta, getRecetaById} from '../controller/ApiController'
 
 class MisRecetas extends React.Component {
 
@@ -24,21 +24,44 @@ class MisRecetas extends React.Component {
       eliminar_receta_ok: false,
       id_receta_a_editar: 0,
       id_receta_a_eliminar: 0,
+      receta_title: "",
+      receta_desc: "",
+      receta_dif: 0,
+      receta_cat: "",
+      receta_pasos: "",
+      receta_ingredientes: [],
+
       recetas_user: []
     };
     this.cargarRecetasFromUser = this.cargarRecetasFromUser.bind(this);
     this.editReceta = this.editReceta.bind(this);
     this.deleteReceta = this.deleteReceta.bind(this);
     this.updateReceta_back = this.updateReceta_back.bind(this);
+    this.handleEditarRecetaBackend = this.handleEditarRecetaBackend.bind(this);
 
+    
 
     this.cargarRecetasFromUser();
 
   }
 
-  editReceta(){
-    this.setState({ editar_receta_ok : true})
-    this.render();
+    async editReceta(id){
+    var receta = await getRecetaById(id);
+    if(receta.rdo === 0){
+      console.log(receta.receta.receta_resp[0])
+      this.setState({ receta_title: receta.receta.receta_resp[0].title , receta_desc: receta.receta.receta_resp[0].description ,   receta_dif: receta.receta.receta_resp[0].dificultad, 
+        receta_cat: receta.receta.receta_resp[0].categoria ,   receta_pasos: receta.receta.receta_resp[0].pasos_a_seguir })
+      this.setState({ editar_receta_ok : true})
+      this.render()
+    };
+  }
+
+  async handleEditarRecetaBackend(){
+    if (isNaN(this.state.receta_dif)){
+      window.alert("La categoria debe ser un numero!")
+    }else{
+        var editar = await this.editReceta();
+    }
   }
 
   async deleteReceta(id){
@@ -68,27 +91,31 @@ class MisRecetas extends React.Component {
             <Container>
                 <div>
                     <h1>Edite su receta</h1>
-                    <h2>En caso que no quiera modificar algun campo, dejelo vacio y el sistema no modificara su contenido.</h2>
+                    <h2>En caso que no quierer modificar algun campo, dejelo vacio y el sistema no modificara su contenido.</h2>
                     <br />
-                    <form onSubmit={this.updateReceta_back}>
+                    <form >
                         <label for="nombrereceta"><b>Nombre de la receta</b></label>
-                        <input type="text"  name="nombrereceta" id="nombrereceta" value={"asdasdasd"}></input>
+                        <input type="text"  name="nombrereceta" id="nombrereceta" value={this.state.receta_title} onChange={(e) => this.setState({ receta_title: e.target.value })}></input>
 
                         <label for="descripcion"><b>Breve descripcion</b></label>
-                        <input type="text"  name="descripcion" id="descripcion" ></input>
+                        <input type="text"  name="descripcion" id="descripcion" value={this.state.receta_desc} onChange={(e) => this.setState({ receta_desc: e.target.value })}></input>
 
                         <label for="dificultad"><b>Nivel de dificultad</b></label>
-                        <input type="text"  name="dificultad" id="dificultad"></input>
+                        <input type="text"  name="dificultad" id="dificultad" value={this.state.receta_dif} onChange={(e) => this.setState({ receta_dif: e.target.value })}></input>
 
 
                         <label for="categoria"><b>Categoria</b></label>
-                        <input type="text"  name="descripcion" id="categoria" ></input>
+                        <input type="text"  name="descripcion" id="categoria" pattern="[0-9]" value={this.state.receta_cat} onChange={(e) => this.setState({ receta_cat: e.target.value })} ></input>
 
                         <label for="descripcion"><b>Pasos a seguir</b></label>
-                        <input type="text"  name="pasos" id="pasos" ></input>
+                        <input type="text"  name="pasos" id="pasos" value={this.state.receta_pasos} onChange={(e) => this.setState({ receta_pasos: e.target.value })} ></input>
 
 
                         <label for="descripcion"><b>Ingredientes</b></label>
+
+                        <div class="container" >
+                            <input type="button" class="registerbtn" disableTouchRipple={true}  onClick={this.handleEditarRecetaBackend} value="Editar receta" ></input>
+                        </div>
                     </form>
                 </div>
                 <BackButtonCenter/>
@@ -103,7 +130,6 @@ class MisRecetas extends React.Component {
 
         );
     } else {
-        console.log(this.state.recetas_user)
         if(this.state.recetas_user.length !== 0){
             return (
                 <Container>
@@ -137,6 +163,8 @@ class MisRecetas extends React.Component {
                         <Grid item xs={9} md={7}  >
                             {
                                 this.state.recetas_user.map( r =>(
+                                  <div>
+                                  <br></br>
                                     <CardActionArea component="a"  >
                                     <Card  >
                                         <div>
@@ -148,7 +176,7 @@ class MisRecetas extends React.Component {
                                                 <br />
                                                 <Grid container spacing={4} direction="line" alignItems="center" justifyContent="center">
                                                     <Grid item xs={4}>
-                                                        <FaEdit  size="30%" onClick={this.editReceta}/>
+                                                        <FaEdit  size="30%" onClick={() => this.editReceta(r.id)}/>
                                                     </Grid>
                                                     <Grid item xs={4}>
                                                         <FaTrash  size="25%"  onClick={() => this.deleteReceta(r.id)}  />
@@ -158,6 +186,8 @@ class MisRecetas extends React.Component {
                                         </div>                            
                                     </Card>
                                 </CardActionArea>
+                                <br></br>
+                                </div>
                                 ))
                             }
                            
