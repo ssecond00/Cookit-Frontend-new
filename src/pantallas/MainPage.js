@@ -7,6 +7,7 @@ import FiltrosHome from '../components/FiltrosHome';
 import MainFeaturedPost from '../components/MainFeaturedPost';
 import Footer from '../components/Footer'
 import FeaturedPost from '../components/FeaturedPost';
+import Typography from '@material-ui/core/Typography';
 
 
 
@@ -171,7 +172,10 @@ class MainPage extends React.Component{
                         <FiltrosHome></FiltrosHome>
                         <MainFeaturedPost></MainFeaturedPost>
                         <Grid container spacing={4}>
-                            <h1>Por el momento no hay recetas! Crea una cuenta y carga la primera!</h1>
+                            <br/>
+                            <Typography variant="h5" color="inherit" align="center">
+                                Aquí podrás ver las recetas que tengan una valoración de 5 estrellas. Por el momento el sitio no cuenta con ninguna... ¡Que esperas para ser el primero!
+                            </Typography>
                         </Grid>
                         <Footer title='Cookit' description=''/>
                     </Container>

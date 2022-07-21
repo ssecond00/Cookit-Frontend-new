@@ -729,3 +729,39 @@ export const eliminarReceta = async function(id_receta ){
 }
 
 export default getRecetaById;
+
+export const updateUsername = async function(username, new_username ){
+    let url = urlWebservices.userService+'updateUsername';
+    var bodyRequest = {
+        'username': username,
+        'new_username' : new_username
+    }
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(bodyRequest)
+        });
+    
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"se actualizo el username correctamente"});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+    } catch (err) {
+        console.log('Error', err)
+    }
+}

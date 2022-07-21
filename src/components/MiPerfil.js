@@ -4,6 +4,7 @@ import { Button } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import BackButtonCenter from "./BackButtonCenter";
 import Cookies from "universal-cookie";
+import {updateUsername, updatePassword} from "../controller/ApiController";
 
 class MiPerfil extends React.Component {
 
@@ -15,7 +16,8 @@ class MiPerfil extends React.Component {
     this.state = {
       edit_pass_ok: false,
       edit_username_ok: false,
-      username: "second",
+      username: this.cookies.get('user_logged'),
+      username_nuevo: "",
       loading: false,
       user_editado_correctamente: false,
       pass_editada_correctamente: false,
@@ -26,13 +28,22 @@ class MiPerfil extends React.Component {
     this.editPass = this.editPass.bind(this);
     this.editar_usuario_backend = this.editar_usuario_backend.bind(this);
     this.editar_pass_backend = this.editar_pass_backend.bind(this);
-
+    this.handleEditUser_backend = this.handleEditUser_backend.bind(this);
     
   }
 
   editUser() {
     this.setState({ edit_username_ok: true });
     this.render();
+  }
+
+  async handleEditUser_backend(){
+    console.log("Username nuevo", this.state.username_nuevo);
+    console.log("Username viejo", this.state.username);
+    var edit = await updateUsername(this.state.username, this.state.username_nuevo);
+    if (edit.rdo === 0){
+      this.cookies.set("user_logged", this.state.username_nuevo, { path: "/" });
+    }
   }
 
   editPass() {
@@ -63,7 +74,7 @@ class MiPerfil extends React.Component {
         return (
           <Container>
             <h1>Se edito el usuario correctamente!</h1>
-            <h2>{"Nuevo username: " + this.state.username}</h2>
+            <h2>{"Nuevo username: " + this.state.username_nuevo}</h2>
             <br></br>
             <BackButtonCenter />
           </Container>
@@ -91,13 +102,13 @@ class MiPerfil extends React.Component {
                       id="username"
                       name="uname"
                       onChange={(e) =>
-                        this.setState({ username: e.target.value })
+                        this.setState({ username_nuevo: e.target.value })
                       }
                       required
                     ></input>
                   </Grid>
                   <br />
-                  <Button type="submit" disableTouchRipple={true} alignItems="">
+                  <Button type="submit" onClick={this.handleEditUser_backend} disableTouchRipple={true} alignItems="">
                     Confirmar
                   </Button>
                 </Grid>
