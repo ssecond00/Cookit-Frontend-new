@@ -30,6 +30,7 @@ class LoginPage extends React.Component {
       this.setState({user_logged_in : true});
       this.cookies.set("flag_login", true, { path: "/" }); 
       this.cookies.set("user_logged", login.user.data.username, { path: "/" });
+      this.cookies.set("email", login.user.data.email, {path: "/" });
       this.cookies.set("logged_username", this.state.username, { path: "/" });
     }else{
       window.alert("La contraseña ingresada es incorrecta.");
@@ -61,7 +62,7 @@ class LoginPage extends React.Component {
                   <form>
                     <div>
                       <label for="uname">
-                        <b>Username</b>
+                        <b>Email</b>
                       </label>
                       <input
                         type="text"

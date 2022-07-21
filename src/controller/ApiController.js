@@ -765,3 +765,39 @@ export const updateUsername = async function(username, new_username ){
         console.log('Error', err)
     }
 }
+
+export const updatePassword = async function(mail, new_password ){
+    let url = urlWebservices.userService+'updatePassword';
+    var bodyRequest = {
+        'mail': mail,
+        'new_password' : new_password
+    }
+
+    try
+    {
+        let response = await fetch(url,{
+            method: 'POST', // or 'PUT'
+            mode: "cors",
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(bodyRequest)
+        });
+    
+        let rdo = response.status;
+        let datos = await response.json();
+        switch(rdo)
+        {
+                case 200:
+                    {
+                        return( {rdo:0, mensaje:"se actualizo la password correctamente"});
+                    }
+                default:
+                    {
+                        return({rdo:1, mensaje:"Ocurrio un error"});
+                    }
+        }
+    } catch (err) {
+        console.log('Error', err)
+    }
+}

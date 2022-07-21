@@ -16,7 +16,7 @@ class MiPerfil extends React.Component {
     this.state = {
       edit_pass_ok: false,
       edit_username_ok: false,
-      email: this.cookies.get(),
+      email: this.cookies.get('email'),
       username: this.cookies.get('user_logged'),
       username_nuevo: "",
       loading: false,
@@ -30,7 +30,7 @@ class MiPerfil extends React.Component {
     this.editar_usuario_backend = this.editar_usuario_backend.bind(this);
     this.editar_pass_backend = this.editar_pass_backend.bind(this);
     this.handleEditUser_backend = this.handleEditUser_backend.bind(this);
-    
+    this.handleEditPass_backend = this.handleEditPass_backend.bind(this);
   }
 
   editUser() {
@@ -41,7 +41,7 @@ class MiPerfil extends React.Component {
   async handleEditUser_backend(){
     console.log("Username nuevo", this.state.username_nuevo);
     console.log("Username viejo", this.state.username);
-    var edit = await updatePassword(this.state.username, this.state.username_nuevo);
+    var edit = await updateUsername(this.state.username, this.state.username_nuevo);
     if (edit.rdo === 0){
       this.cookies.set("user_logged", this.state.username_nuevo, { path: "/" });
     }
@@ -54,12 +54,9 @@ class MiPerfil extends React.Component {
   }
 
   async handleEditPass_backend(){
-    console.log("mail", this.state.username_nuevo);
-    console.log("password", this.state.username);
-    var edit = await updateUsername(this.state.username, this.state.username_nuevo);
-    if (edit.rdo === 0){
-      this.cookies.set("user_logged", this.state.username_nuevo, { path: "/" });
-    }
+    console.log("mail", this.state.email);
+    console.log("password", this.state.new_pass2);
+    var edit = await updatePassword(this.state.email, this.state.new_pass2);
   }
 
   editar_usuario_backend() {
@@ -207,8 +204,8 @@ class MiPerfil extends React.Component {
                   <input
                     class="inputButton"
                     type="submit"
-                    
                     value="REESTABLECER CONTRASEÑA"
+                    onClick={this.handleEditPass_backend}
                   ></input>
                 </div>
               </form>
