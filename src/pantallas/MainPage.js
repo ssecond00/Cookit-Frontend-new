@@ -160,7 +160,25 @@ class MainPage extends React.Component{
     render(){
         switch(this.state.cant){
             case(0):
-                return (<h1></h1>)
+            return(
+                <html>
+                <head>
+                    <link rel="stylesheet" href="App.css" />
+                </head>
+                <body>
+                    <Container>
+                        <Header2></Header2>
+                        <FiltrosHome></FiltrosHome>
+                        <MainFeaturedPost></MainFeaturedPost>
+                        <Grid container spacing={4}>
+                            <h1>Por el momento no hay recetas! Crea una cuenta y carga la primera!</h1>
+                        </Grid>
+                        <Footer title='Cookit' description=''/>
+                    </Container>
+                </body>
+    
+            </html >
+            );
             case(1):
                 return(
                     <html>
