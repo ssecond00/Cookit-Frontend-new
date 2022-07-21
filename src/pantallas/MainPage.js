@@ -171,7 +171,9 @@ class MainPage extends React.Component{
                         <FiltrosHome></FiltrosHome>
                         <MainFeaturedPost></MainFeaturedPost>
                         <Grid container spacing={4}>
-                            <h1>Por el momento no hay recetas! Crea una cuenta y carga la primera!</h1>
+                        <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+                                Por el momento no contamos con recetas destacadas!
+                        </Typography>
                         </Grid>
                         <Footer title='Cookit' description=''/>
                     </Container>
