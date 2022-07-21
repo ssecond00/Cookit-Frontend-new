@@ -10,7 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FiveStar from '../components/FiveStar';
 import { FaEdit, FaTrash } from "react-icons/fa";
 import Cookies from "universal-cookie";
-import {getRecetasByUsername, eliminarReceta, getRecetaById} from '../controller/ApiController'
+import {getRecetasByUsername, eliminarReceta, getRecetaById, updateReceta} from '../controller/ApiController'
 
 class MisRecetas extends React.Component {
 
@@ -49,7 +49,7 @@ class MisRecetas extends React.Component {
     var receta = await getRecetaById(id);
     if(receta.rdo === 0){
       console.log(receta.receta.receta_resp[0])
-      this.setState({ receta_title: receta.receta.receta_resp[0].title , receta_desc: receta.receta.receta_resp[0].description ,   receta_dif: receta.receta.receta_resp[0].dificultad, 
+      this.setState({id_receta_a_editar: receta.receta.receta_resp[0].id,  receta_title: receta.receta.receta_resp[0].title , receta_desc: receta.receta.receta_resp[0].description ,   receta_dif: receta.receta.receta_resp[0].dificultad, 
         receta_cat: receta.receta.receta_resp[0].categoria ,   receta_pasos: receta.receta.receta_resp[0].pasos_a_seguir })
       this.setState({ editar_receta_ok : true})
       this.render()
@@ -60,7 +60,13 @@ class MisRecetas extends React.Component {
     if (isNaN(this.state.receta_dif)){
       window.alert("La categoria debe ser un numero!")
     }else{
-        var editar = await this.editReceta();
+        console.log(this.state.id_receta_a_editar);
+        var editar = await updateReceta(this.state.id_receta_a_editar, this.state.receta_title,  Date().toLocaleString().substring(0,15), this.cookies.get("user_logged"), this.state.receta_dif, 0, this.state.receta_cat, this.state.receta_pasos, this.state.receta_desc );
+        if(editar.rdo === 0 ){
+          console.log(editar);
+          this.setState({ editar_receta_ok: false });
+          this.cargarRecetasFromUser();
+        }
     }
   }
 
@@ -69,7 +75,7 @@ class MisRecetas extends React.Component {
     if(eliminar.rdo === 0){
 
       this.setState({  eliminar_receta_ok : true})
-      this.render();
+      this.cargarRecetasFromUser();
     }
     
   }
@@ -77,6 +83,7 @@ class MisRecetas extends React.Component {
   async cargarRecetasFromUser(){
     var recetas = await getRecetasByUsername(this.cookies.get("user_logged"));
     this.setState({ recetas_user : recetas.recetas.recetas });
+    
     this.render()
   }
 
@@ -85,7 +92,6 @@ class MisRecetas extends React.Component {
   }
 
   render() {
-
     if (this.state.editar_receta_ok) {
         return(
             <Container>

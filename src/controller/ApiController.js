@@ -617,7 +617,7 @@ export const registrarUsuario = async function(email, username, phone_number, pa
 export const updateReceta = async function(id_receta, title, date, user,dificultad,estrellas,categoria,pasos_a_seguir,description){
     let url = urlWebservices.recetaService+'updateReceta';
 
-
+    
     var bodyRequest = {
         'id_receta':id_receta,
         'title': title,
@@ -628,11 +628,11 @@ export const updateReceta = async function(id_receta, title, date, user,dificult
         'pasos': pasos_a_seguir,
         'cat': categoria, 
         'desc': description,
-        'crat': new Date(),
-        'upat': new Date()
+        'crat': Date().toLocaleString().substring(0,15),
+        'upat': Date().toLocaleString().substring(0,15)
 
     }
-
+    console.log(bodyRequest)
     try
     {
         let response = await fetch(url,{

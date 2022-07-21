@@ -67,6 +67,12 @@ Estos comandos deben ser ejecutados en ambos proyectos (frontend y backend) siem
 > npm start
 ```
 
+# Diagrama de Base de datos
+
+![alt text](https://res.cloudinary.com/cookitdb/image/upload/v1658417256/btzyxyum7hv7vbdturzq.png
+)
+
+
 ## Seteo de configuraciones - Variables de entorno.
 
 ### Base de datos relacional: 
