@@ -16,12 +16,13 @@ class MiPerfil extends React.Component {
     this.state = {
       edit_pass_ok: false,
       edit_username_ok: false,
+      email: this.cookies.get(),
       username: this.cookies.get('user_logged'),
       username_nuevo: "",
       loading: false,
       user_editado_correctamente: false,
       pass_editada_correctamente: false,
-      new_pass1 : "",
+      new_pass1: "",
       new_pass2: ""
     };
     this.editUser = this.editUser.bind(this);
@@ -40,7 +41,7 @@ class MiPerfil extends React.Component {
   async handleEditUser_backend(){
     console.log("Username nuevo", this.state.username_nuevo);
     console.log("Username viejo", this.state.username);
-    var edit = await updateUsername(this.state.username, this.state.username_nuevo);
+    var edit = await updatePassword(this.state.username, this.state.username_nuevo);
     if (edit.rdo === 0){
       this.cookies.set("user_logged", this.state.username_nuevo, { path: "/" });
     }
@@ -50,6 +51,15 @@ class MiPerfil extends React.Component {
     this.setState({ edit_pass_ok: true });
     //editPass
     this.render();
+  }
+
+  async handleEditPass_backend(){
+    console.log("mail", this.state.username_nuevo);
+    console.log("password", this.state.username);
+    var edit = await updateUsername(this.state.username, this.state.username_nuevo);
+    if (edit.rdo === 0){
+      this.cookies.set("user_logged", this.state.username_nuevo, { path: "/" });
+    }
   }
 
   editar_usuario_backend() {
